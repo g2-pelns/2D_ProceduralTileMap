@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class MeshData {
 
+    public List<Vector2> UVs;
     public List<Vector3> vertices;
     public List<int> triangles;
 
     public MeshData (int x, int y, int width, int height)
     {
-
+        UVs = new List<Vector2>();
         vertices = new List<Vector3>();
         triangles = new List<int>();
 
@@ -42,5 +43,7 @@ public class MeshData {
         triangles.Add(vertices.Count - 2);
         triangles.Add(vertices.Count - 1);
         triangles.Add(vertices.Count - 4);
+
+        UVs.AddRange(SpriteLoader.instance.GetTileUVs(tile));
     }
 }

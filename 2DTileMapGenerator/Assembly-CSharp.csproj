@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Behaviours\SpriteLoader.cs" />
      <Compile Include="Assets\Scripts\Behaviours\World.cs" />
      <Compile Include="Assets\Scripts\Classes\MeshData.cs" />
      <Compile Include="Assets\Scripts\Classes\Tile.cs" />
