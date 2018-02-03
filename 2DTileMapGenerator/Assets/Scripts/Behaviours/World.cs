@@ -10,12 +10,33 @@ public class World : MonoBehaviour {
     public int width;
     public int height;
 
+    public string seed;
+    public bool randomSeed;
+
+    public float frequency;
+    public float amplitude;
+
+    public float lacunarity;
+    public float persistance;
+
+    public int octaves;
+
+    Noise noise;
+
     public Tile[,] tiles;
 	// Use this for initialization
 
     void Awake()
     {
         instance = this;
+
+        if (randomSeed == true)
+        {
+            int value = Random.Range(-10000, 10000);
+            seed = value.ToString();
+        }
+
+        noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
     }
 	void Start () {
         CreateTiles();
@@ -78,11 +99,17 @@ public class World : MonoBehaviour {
     {
         tiles = new Tile[ width, height];
 
+        float[,] noiseValues = noise.GetNoiseValues(width, height);
+
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                tiles[i, j] = new Tile(Tile.Type.Grass);
+                if (noiseValues[i,j] > 0.5f)
+                    tiles[i, j] = new Tile(Tile.Type.Grass);
+                else
+                    tiles[i, j] = new Tile(Tile.Type.Dirt);
+
             }
         }
     }
