@@ -21,6 +21,20 @@ public class World : MonoBehaviour {
 
     public int octaves;
 
+    public float seaLevel;
+
+    public float beachStartHeight;
+    public float beachEndHeight;
+
+    public float grassStartHeight;
+    public float grassEndHeight;
+
+    public float dirtStartHeight;
+    public float dirtEndHeight;
+
+    public float stoneStartHeight;
+    public float stoneEndHeight;
+
     Noise noise;
 
     public Tile[,] tiles;
@@ -105,13 +119,29 @@ public class World : MonoBehaviour {
         {
             for (int j = 0; j < height; j++)
             {
-                if (noiseValues[i,j] > 0.5f)
-                    tiles[i, j] = new Tile(Tile.Type.Grass);
-                else
-                    tiles[i, j] = new Tile(Tile.Type.Dirt);
-
+                tiles[i, j] = MakeTileAtHeight(noiseValues[i, j]);
             }
         }
+    }
+
+    Tile MakeTileAtHeight(float currentHeight)
+    {
+        if (currentHeight <= seaLevel)
+            return new Tile(Tile.Type.Water);
+
+        if (currentHeight >= beachStartHeight && currentHeight <= beachEndHeight)
+            return new Tile(Tile.Type.Sand);
+
+        if (currentHeight >= grassStartHeight && currentHeight <= grassEndHeight)
+            return new Tile(Tile.Type.Grass);
+
+        if (currentHeight >= dirtStartHeight && currentHeight <= dirtEndHeight)
+            return new Tile(Tile.Type.Dirt);
+
+        if (currentHeight >= stoneStartHeight && currentHeight <= stoneEndHeight)
+            return new Tile(Tile.Type.Stone);
+
+        return new Tile(Tile.Type.Void);
     }
 
     public Tile GetTileAt (int x, int y)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile {
 
-    public enum Type { Dirt, Grass }
+    public enum Type { Dirt, Grass, Sand, Water, Stone, Void}
     public Type type;
 
     public Tile (Type type)
