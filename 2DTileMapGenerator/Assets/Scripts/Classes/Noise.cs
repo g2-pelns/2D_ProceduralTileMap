@@ -46,6 +46,7 @@ public class Noise {
                     noiseValues[i, j] += Mathf.PerlinNoise((i + seed) / (float)width * frequency, j / (float)height * frequency) * amplitude;
                     frequency *= lacunarity;
                     amplitude *= persistance;
+                    //Debug.Log("Frequency" + frequency);
                 }
 
                 amplitude = tempA;
