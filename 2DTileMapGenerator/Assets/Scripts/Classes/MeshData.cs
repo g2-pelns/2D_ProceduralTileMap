@@ -14,6 +14,9 @@ public class MeshData {
         vertices = new List<Vector3>();
         triangles = new List<int>();
 
+
+        Debug.Log("MESH");
+
         for (int i = x; i < width + x; i++)
         {
             for (int j = y; j < height + y; j++)

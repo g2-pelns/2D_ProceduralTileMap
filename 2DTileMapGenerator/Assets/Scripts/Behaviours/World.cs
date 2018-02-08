@@ -23,19 +23,23 @@ public class World : MonoBehaviour {
 
     public float seaLevel;
 
-    public float beachStartHeight;
+    private float beachStartHeight; // SEA
     public float beachEndHeight;
 
-    public float grassStartHeight;
+    private float grassStartHeight; // BEACH END
     public float grassEndHeight;
 
-    public float dirtStartHeight;
+    private float dirtStartHeight; // GRASS END
     public float dirtEndHeight;
 
-    public float stoneStartHeight;
+    private float stoneStartHeight; //DIRT END
     public float stoneEndHeight;
 
+    MeshData data;
     Noise noise;
+    Mesh mesh;
+
+    private int time = 0;
 
     public Tile[,] tiles;
 	// Use this for initialization
@@ -43,6 +47,10 @@ public class World : MonoBehaviour {
     void Awake()
     {
         instance = this;
+		beachStartHeight = seaLevel;
+		grassStartHeight = beachEndHeight;
+		dirtStartHeight = grassEndHeight;
+		stoneStartHeight = dirtEndHeight;
 
         if (randomSeed == true)
         {
@@ -59,8 +67,28 @@ public class World : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (time == 100)
+        {
+            GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
+            foreach (GameObject tiles in oldTiles)
+            {
+                Destroy(tiles);
+            }
+
+            if (randomSeed == true)
+            {
+                int value = Random.Range(-1000, 1000);
+                seed = value.ToString();
+            }
+            noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
+
+            CreateTiles();
+            SubdivideTilesArray();
+
+            time = 0;
+        }
+        time += 1;
+    }
 
     void SubdivideTilesArray (int i1 = 0, int i2 = 0)
     {
@@ -93,16 +121,17 @@ public class World : MonoBehaviour {
     }
 
     void GenerateMesh (int x, int y, int width, int height) {
-        MeshData data = new MeshData(x, y, width, height);
+        data = new MeshData(x, y, width, height);
 
         GameObject meshGO = new GameObject("CHUNK");
         meshGO.transform.SetParent(this.transform);
+        meshGO.tag = "CHUNK";
 
         MeshFilter filter = meshGO.AddComponent<MeshFilter>();
         MeshRenderer render = meshGO.AddComponent<MeshRenderer>();
         render.material = material;
 
-        Mesh mesh = filter.mesh;
+        mesh = filter.mesh;
 
         mesh.vertices = data.vertices.ToArray();
         mesh.triangles = data.triangles.ToArray();
@@ -111,7 +140,7 @@ public class World : MonoBehaviour {
 
     void CreateTiles ()
     {
-        tiles = new Tile[ width, height];
+        tiles = new Tile[width, height];
 
         float[,] noiseValues = noise.GetNoiseValues(width, height);
 
