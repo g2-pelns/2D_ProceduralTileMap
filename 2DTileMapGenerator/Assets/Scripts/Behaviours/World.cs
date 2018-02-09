@@ -67,27 +67,29 @@ public class World : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (time == 100)
-        {
-            GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
-            foreach (GameObject tiles in oldTiles)
-            {
-                Destroy(tiles);
-            }
 
-            if (randomSeed == true)
+        if (randomSeed == true)
+        {
+            if (time == 100)
             {
+                GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
+                foreach (GameObject tiles in oldTiles)
+                {
+                    Destroy(tiles);
+                }
+
                 int value = Random.Range(-1000, 1000);
                 seed = value.ToString();
+
+                noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
+
+                CreateTiles();
+                SubdivideTilesArray();
+
+                time = 0;
             }
-            noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
-
-            CreateTiles();
-            SubdivideTilesArray();
-
-            time = 0;
+            time += 1;
         }
-        time += 1;
     }
 
     void SubdivideTilesArray (int i1 = 0, int i2 = 0)
