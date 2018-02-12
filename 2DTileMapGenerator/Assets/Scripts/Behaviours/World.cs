@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class World : MonoBehaviour {
 
     public static World instance;
 
     public Material material;
+    public Button rndButton;
+
     public int width;
     public int height;
 
@@ -38,14 +41,18 @@ public class World : MonoBehaviour {
     MeshData data;
     Noise noise;
     Mesh mesh;
+    Button btn;
 
     private int time = 0;
+    bool randomize;
+    //bool random2 = true;
 
     public Tile[,] tiles;
 	// Use this for initialization
 
     void Awake()
     {
+        randomize = false;
         instance = this;
 		beachStartHeight = seaLevel;
 		grassStartHeight = beachEndHeight;
@@ -61,35 +68,40 @@ public class World : MonoBehaviour {
         noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
     }
 	void Start () {
+        btn = rndButton.GetComponent<Button>();
+        btn.onClick.AddListener(RandomizeTiles);
+
         CreateTiles();
         SubdivideTilesArray();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-        if (randomSeed == true)
+	public void Update ()
+    {
+        if (randomize == true)
         {
-            if (time == 100)
-            {
-                GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
-                foreach (GameObject tiles in oldTiles)
-                {
-                    Destroy(tiles);
-                }
-
-                int value = Random.Range(-1000, 1000);
-                seed = value.ToString();
-
-                noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
-
-                CreateTiles();
-                SubdivideTilesArray();
-
-                time = 0;
-            }
-            time += 1;
+            CreateRandom();
+            randomize = false;
         }
+    }
+
+    void CreateRandom()
+    {
+        GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
+        foreach (GameObject tiles in oldTiles)
+        {
+            Destroy(tiles);
+        }
+
+        int value = Random.Range(-1000, 1000);
+        seed = value.ToString();
+
+        Debug.Log(seed);
+
+        noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
+
+        CreateTiles();
+        SubdivideTilesArray();
     }
 
     void SubdivideTilesArray (int i1 = 0, int i2 = 0)
@@ -183,4 +195,12 @@ public class World : MonoBehaviour {
         }
         return tiles[x, y];
     }
+
+    void RandomizeTiles()
+    {
+        randomize = true;
+    }
+
+
+
 }
