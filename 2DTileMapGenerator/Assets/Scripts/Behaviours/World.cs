@@ -10,33 +10,33 @@ public class World : MonoBehaviour {
     public Material material;
     public Button rndButton;
 
-    public int width;
-    public int height;
+    public static int width;
+    public static int height;
 
-    public string seed;
+    public static string seed;
     public bool randomSeed;
 
-    public float frequency;
-    public float amplitude;
+    public static float frequency;
+    public static float amplitude;
 
-    public float lacunarity;
-    public float persistance;
+    public static float lacunarity;
+    public static float persistance;
 
     public int octaves;
 
-    public float seaLevel;
+    public static float seaLevel;
 
     private float beachStartHeight; // SEA
-    public float beachEndHeight;
+    public static float beachEndHeight;
 
     private float grassStartHeight; // BEACH END
-    public float grassEndHeight;
+    public static float grassEndHeight;
 
     private float dirtStartHeight; // GRASS END
-    public float dirtEndHeight;
+    public static float dirtEndHeight;
 
     private float stoneStartHeight; //DIRT END
-    public float stoneEndHeight;
+    public static float stoneEndHeight;
 
     MeshData data;
     Noise noise;
@@ -54,7 +54,22 @@ public class World : MonoBehaviour {
     {
         randomize = false;
         instance = this;
-		beachStartHeight = seaLevel;
+
+        width = 150;
+        height = 150;
+
+        frequency = 10f;
+        amplitude = 0.1f;
+        lacunarity = 0f;
+        persistance = 0f;
+
+        seaLevel = 0.2f;
+        beachEndHeight = 0.4f;
+        grassEndHeight = 0.6f;
+        dirtEndHeight = 0.8f;
+        stoneEndHeight = 1.0f;
+
+        beachStartHeight = seaLevel;
 		grassStartHeight = beachEndHeight;
 		dirtStartHeight = grassEndHeight;
 		stoneStartHeight = dirtEndHeight;
@@ -200,7 +215,5 @@ public class World : MonoBehaviour {
     {
         randomize = true;
     }
-
-
 
 }
