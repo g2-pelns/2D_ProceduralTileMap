@@ -9,6 +9,9 @@ public class World : MonoBehaviour {
 
     public Material material;
     public Button rndButton;
+    public Button genButton;
+    public List<Button> addVal;
+    public List<Button> minVal;
 
     public static int width;
     public static int height;
@@ -45,6 +48,7 @@ public class World : MonoBehaviour {
 
     private int time = 0;
     bool randomize;
+    bool regen;
     //bool random2 = true;
 
     public Tile[,] tiles;
@@ -53,13 +57,14 @@ public class World : MonoBehaviour {
     void Awake()
     {
         randomize = false;
+        regen = false;
         instance = this;
 
-        width = 150;
-        height = 150;
+        width = 50;
+        height = 50;
 
-        frequency = 10f;
-        amplitude = 0.1f;
+        frequency = 0f;
+        amplitude = 0f;
         lacunarity = 0f;
         persistance = 0f;
 
@@ -82,11 +87,95 @@ public class World : MonoBehaviour {
 
         noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
     }
+
 	void Start () {
         btn = rndButton.GetComponent<Button>();
         btn.onClick.AddListener(RandomizeTiles);
 
-        CreateTiles();
+        genButton.onClick.AddListener(ReGenerateTiles);
+
+        for (int i = 0; i < addVal.Count; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    addVal[i].onClick.AddListener(AddValue_Width);
+                    break;
+                case 1:
+                    addVal[i].onClick.AddListener(AddValue_Height);
+                    break;
+                case 2:
+                    addVal[i].onClick.AddListener(AddValue_Freq);
+                    break;
+                case 3:
+                    addVal[i].onClick.AddListener(AddValue_Amp);
+                    break;
+                case 4:
+                    addVal[i].onClick.AddListener(AddValue_Lac);
+                    break;
+                case 5:
+                    addVal[i].onClick.AddListener(AddValue_Per);
+                    break;
+                case 6:
+                    addVal[i].onClick.AddListener(AddValue_Sea);
+                    break;
+                case 7:
+                    addVal[i].onClick.AddListener(AddValue_Beach);
+                    break;
+                case 8:
+                    addVal[i].onClick.AddListener(AddValue_Grass);
+                    break;
+                case 9:
+                    addVal[i].onClick.AddListener(AddValue_Dirt);
+                    break;
+                case 10:
+                    addVal[i].onClick.AddListener(AddValue_Stone);
+                    break;
+            }
+
+        }
+        for (int i = 0; i < minVal.Count; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    minVal[i].onClick.AddListener(MinusValue_Width);
+                    break;
+                case 1:
+                    minVal[i].onClick.AddListener(MinusValue_Height);
+                    break;
+                case 2:
+                    minVal[i].onClick.AddListener(MinusValue_Freq);
+                    break;
+                case 3:
+                    minVal[i].onClick.AddListener(MinusValue_Amp);
+                    break;
+                case 4:
+                    minVal[i].onClick.AddListener(MinusValue_Lac);
+                    break;
+                case 5:
+                    minVal[i].onClick.AddListener(MinusValue_Per);
+                    break;
+                case 6:
+                    minVal[i].onClick.AddListener(MinusValue_Sea);
+                    break;
+                case 7:
+                    minVal[i].onClick.AddListener(MinusValue_Beach);
+                    break;
+                case 8:
+                    minVal[i].onClick.AddListener(MinusValue_Grass);
+                    break;
+                case 9:
+                    minVal[i].onClick.AddListener(MinusValue_Dirt);
+                    break;
+                case 10:
+                    minVal[i].onClick.AddListener(MinusValue_Stone);
+                    break;
+            }
+
+        }
+
+        CreateTiles();  
         SubdivideTilesArray();
 	}
 	
@@ -98,9 +187,14 @@ public class World : MonoBehaviour {
             CreateRandom();
             randomize = false;
         }
+        else if (regen == true)
+        {
+            ReGenerate();
+            regen = false;
+        }
     }
 
-    void CreateRandom()
+    void ReGenerate()
     {
         GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
         foreach (GameObject tiles in oldTiles)
@@ -108,15 +202,16 @@ public class World : MonoBehaviour {
             Destroy(tiles);
         }
 
-        int value = Random.Range(-1000, 1000);
-        seed = value.ToString();
-
-        Debug.Log(seed);
-
         noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
 
         CreateTiles();
         SubdivideTilesArray();
+    }
+
+    void CreateRandom()
+    {
+        int value = Random.Range(-1000, 1000);
+        seed = value.ToString();
     }
 
     void SubdivideTilesArray (int i1 = 0, int i2 = 0)
@@ -216,4 +311,118 @@ public class World : MonoBehaviour {
         randomize = true;
     }
 
+    void ReGenerateTiles()
+    {
+        regen = true;
+    }
+
+    void AddValue_Width()
+    {
+        width += 1;
+    }
+
+    void AddValue_Height()
+    {
+        height += 1;
+    }
+
+    void AddValue_Freq()
+    {
+        frequency += 0.1f;
+    }
+
+    void AddValue_Amp()
+    {
+        amplitude += 0.01f;
+    }
+
+    void AddValue_Lac()
+    {
+        lacunarity += 0.01f;
+    }
+
+    void AddValue_Per()
+    {
+        persistance += 0.01f;
+    }
+
+    void AddValue_Sea()
+    {
+        seaLevel += 0.05f;
+    }
+
+    void AddValue_Beach()
+    {
+        beachEndHeight += 0.05f;
+    }
+
+    void AddValue_Grass()
+    {
+        grassEndHeight += 0.05f;
+    }
+
+    void AddValue_Dirt()
+    {
+        dirtEndHeight += 0.05f;
+    }
+
+    void AddValue_Stone()
+    {
+        stoneEndHeight += 0.05f;
+    }
+
+    void MinusValue_Width()
+    {
+        width -= 1;
+    }
+
+    void MinusValue_Height()
+    {
+        height -= 1;
+    }
+
+    void MinusValue_Freq()
+    {
+        frequency -= 0.1f;
+    }
+
+    void MinusValue_Amp()
+    {
+        amplitude -= 0.01f;
+    }
+
+    void MinusValue_Lac()
+    {
+        lacunarity -= 0.01f;
+    }
+
+    void MinusValue_Per()
+    {
+        persistance -= 0.01f;
+    }
+
+    void MinusValue_Sea()
+    {
+        seaLevel -= 0.05f;
+    }
+
+    void MinusValue_Beach()
+    {
+        beachEndHeight -= 0.05f;
+    }
+
+    void MinusValue_Grass()
+    {
+        grassEndHeight -= 0.05f;
+    }
+
+    void MinusValue_Dirt()
+    {
+        dirtEndHeight -= 0.05f;
+    }
+
+    void MinusValue_Stone()
+    {
+        stoneEndHeight -= 0.05f;
+    }
 }
