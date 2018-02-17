@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Behaviours\CameraControl.cs" />
+     <Compile Include="Assets\Scripts\Behaviours\MenuControl.cs" />
      <Compile Include="Assets\Scripts\Behaviours\SpriteLoader.cs" />
      <Compile Include="Assets\Scripts\Behaviours\World.cs" />
      <Compile Include="Assets\Scripts\Classes\MeshData.cs" />

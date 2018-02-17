@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class World : MonoBehaviour {
 
     public static World instance;
+	public GameObject cursor;
 
     public Material material;
     public Button rndButton;
@@ -60,8 +61,8 @@ public class World : MonoBehaviour {
         regen = false;
         instance = this;
 
-        width = 50;
-        height = 50;
+        width = 10;
+        height = 10;
 
         frequency = 0f;
         amplitude = 0f;
@@ -94,42 +95,42 @@ public class World : MonoBehaviour {
 
         genButton.onClick.AddListener(ReGenerateTiles);
 
-        for (int i = 0; i < addVal.Count; i++)
-        {
+		for (int i = 0; i < addVal.Count; i++){
+        
             switch (i)
             {
                 case 0:
-                    addVal[i].onClick.AddListener(AddValue_Width);
+                addVal[i].onClick.AddListener(MenuControl.AddValue_Width);
                     break;
                 case 1:
-                    addVal[i].onClick.AddListener(AddValue_Height);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Height);
                     break;
                 case 2:
-                    addVal[i].onClick.AddListener(AddValue_Freq);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Freq);
                     break;
                 case 3:
-                    addVal[i].onClick.AddListener(AddValue_Amp);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Amp);
                     break;
                 case 4:
-                    addVal[i].onClick.AddListener(AddValue_Lac);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Lac);
                     break;
                 case 5:
-                    addVal[i].onClick.AddListener(AddValue_Per);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Per);
                     break;
                 case 6:
-                    addVal[i].onClick.AddListener(AddValue_Sea);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Sea);
                     break;
                 case 7:
-                    addVal[i].onClick.AddListener(AddValue_Beach);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Beach);
                     break;
                 case 8:
-                    addVal[i].onClick.AddListener(AddValue_Grass);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Grass);
                     break;
                 case 9:
-                    addVal[i].onClick.AddListener(AddValue_Dirt);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Dirt);
                     break;
                 case 10:
-                    addVal[i].onClick.AddListener(AddValue_Stone);
+				addVal[i].onClick.AddListener(MenuControl.AddValue_Stone);
                     break;
             }
 
@@ -139,37 +140,37 @@ public class World : MonoBehaviour {
             switch (i)
             {
                 case 0:
-                    minVal[i].onClick.AddListener(MinusValue_Width);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Width);
                     break;
                 case 1:
-                    minVal[i].onClick.AddListener(MinusValue_Height);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Height);
                     break;
                 case 2:
-                    minVal[i].onClick.AddListener(MinusValue_Freq);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Freq);
                     break;
                 case 3:
-                    minVal[i].onClick.AddListener(MinusValue_Amp);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Amp);
                     break;
                 case 4:
-                    minVal[i].onClick.AddListener(MinusValue_Lac);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Lac);
                     break;
                 case 5:
-                    minVal[i].onClick.AddListener(MinusValue_Per);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Per);
                     break;
                 case 6:
-                    minVal[i].onClick.AddListener(MinusValue_Sea);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Sea);
                     break;
                 case 7:
-                    minVal[i].onClick.AddListener(MinusValue_Beach);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Beach);
                     break;
                 case 8:
-                    minVal[i].onClick.AddListener(MinusValue_Grass);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Grass);
                     break;
                 case 9:
-                    minVal[i].onClick.AddListener(MinusValue_Dirt);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Dirt);
                     break;
                 case 10:
-                    minVal[i].onClick.AddListener(MinusValue_Stone);
+				minVal[i].onClick.AddListener(MenuControl.MinusValue_Stone);
                     break;
             }
 
@@ -182,6 +183,23 @@ public class World : MonoBehaviour {
 	// Update is called once per frame
 	public void Update ()
     {
+		Vector3 pos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		Tile tileUnderMouse = GetTileAtCoord (pos);
+
+		if (tileUnderMouse != null) {
+			cursor.SetActive (true);
+			Vector3 cursorPos = new Vector3 (tileUnderMouse.m_x, tileUnderMouse.m_y, 0);
+			cursor.transform.position = cursorPos;
+		
+			if (Input.GetMouseButtonDown (0))
+			{
+				tileUnderMouse.type = Tile.Type.Stone;
+			}
+
+		} else {
+			cursor.SetActive (false);
+		}
+
         if (randomize == true)
         {
             CreateRandom();
@@ -193,6 +211,14 @@ public class World : MonoBehaviour {
             regen = false;
         }
     }
+
+	Tile GetTileAtCoord(Vector3 coord)
+	{
+		int x = Mathf.FloorToInt (coord.x);
+		int y = Mathf.FloorToInt (coord.y);
+
+		return GetTileAt(x, y);
+	}
 
     void ReGenerate()
     {
@@ -273,11 +299,13 @@ public class World : MonoBehaviour {
             for (int j = 0; j < height; j++)
             {
                 tiles[i, j] = MakeTileAtHeight(noiseValues[i, j]);
+				tiles [i, j].m_x = i;
+				tiles [i, j].m_y = j;
             }
         }
     }
 
-    Tile MakeTileAtHeight(float currentHeight)
+	Tile MakeTileAtHeight(float currentHeight)
     {
         if (currentHeight <= seaLevel)
             return new Tile(Tile.Type.Water);
@@ -314,115 +342,5 @@ public class World : MonoBehaviour {
     void ReGenerateTiles()
     {
         regen = true;
-    }
-
-    void AddValue_Width()
-    {
-        width += 1;
-    }
-
-    void AddValue_Height()
-    {
-        height += 1;
-    }
-
-    void AddValue_Freq()
-    {
-        frequency += 0.1f;
-    }
-
-    void AddValue_Amp()
-    {
-        amplitude += 0.01f;
-    }
-
-    void AddValue_Lac()
-    {
-        lacunarity += 0.01f;
-    }
-
-    void AddValue_Per()
-    {
-        persistance += 0.01f;
-    }
-
-    void AddValue_Sea()
-    {
-        seaLevel += 0.05f;
-    }
-
-    void AddValue_Beach()
-    {
-        beachEndHeight += 0.05f;
-    }
-
-    void AddValue_Grass()
-    {
-        grassEndHeight += 0.05f;
-    }
-
-    void AddValue_Dirt()
-    {
-        dirtEndHeight += 0.05f;
-    }
-
-    void AddValue_Stone()
-    {
-        stoneEndHeight += 0.05f;
-    }
-
-    void MinusValue_Width()
-    {
-        width -= 1;
-    }
-
-    void MinusValue_Height()
-    {
-        height -= 1;
-    }
-
-    void MinusValue_Freq()
-    {
-        frequency -= 0.1f;
-    }
-
-    void MinusValue_Amp()
-    {
-        amplitude -= 0.01f;
-    }
-
-    void MinusValue_Lac()
-    {
-        lacunarity -= 0.01f;
-    }
-
-    void MinusValue_Per()
-    {
-        persistance -= 0.01f;
-    }
-
-    void MinusValue_Sea()
-    {
-        seaLevel -= 0.05f;
-    }
-
-    void MinusValue_Beach()
-    {
-        beachEndHeight -= 0.05f;
-    }
-
-    void MinusValue_Grass()
-    {
-        grassEndHeight -= 0.05f;
-    }
-
-    void MinusValue_Dirt()
-    {
-        dirtEndHeight -= 0.05f;
-    }
-
-    void MinusValue_Stone()
-    {
-        stoneEndHeight -= 0.05f;
     }
 }

@@ -47,4 +47,114 @@ public class MenuControl : MonoBehaviour {
         m_Dirt.text = World.dirtEndHeight.ToString();
         m_Stone.text = World.stoneEndHeight.ToString();
     }
+
+	public static void AddValue_Width()
+	{
+		World.width += 10;
+	}
+
+	public static void AddValue_Height()
+	{
+		World.height += 10;
+	}
+
+	public static void AddValue_Freq()
+	{
+		World.frequency += 0.1f;
+	}
+
+	public static void AddValue_Amp()
+	{
+		World.amplitude += 0.01f;
+	}
+
+	public static void AddValue_Lac()
+	{
+		World.lacunarity += 0.01f;
+	}
+
+	public static void AddValue_Per()
+	{
+		World.persistance += 0.01f;
+	}
+
+	public static void AddValue_Sea()
+	{
+		World.seaLevel += 0.05f;
+	}
+
+	public static void AddValue_Beach()
+	{
+		World.beachEndHeight += 0.05f;
+	}
+
+	public static void AddValue_Grass()
+	{
+		World.grassEndHeight += 0.05f;
+	}
+
+	public static void AddValue_Dirt()
+	{
+		World.dirtEndHeight += 0.05f;
+	}
+
+	public static void AddValue_Stone()
+	{
+		World.stoneEndHeight += 0.05f;
+	}
+
+	public static void MinusValue_Width()
+	{
+		World.width -= 10;
+	}
+
+	public static void MinusValue_Height()
+	{
+		World.height -= 10;
+	}
+
+	public static void MinusValue_Freq()
+	{
+		World.frequency -= 0.1f;
+	}
+
+	public static void MinusValue_Amp()
+	{
+		World.amplitude -= 0.01f;
+	}
+
+	public static void MinusValue_Lac()
+	{
+		World.lacunarity -= 0.01f;
+	}
+
+	public static void MinusValue_Per()
+	{
+		World.persistance -= 0.01f;
+	}
+
+	public static void MinusValue_Sea()
+	{
+		World.seaLevel -= 0.05f;
+	}
+
+	public static void MinusValue_Beach()
+	{
+		World.beachEndHeight -= 0.05f;
+	}
+
+	public static void MinusValue_Grass()
+	{
+		World.grassEndHeight -= 0.05f;
+	}
+
+	public static void MinusValue_Dirt()
+	{
+		World.dirtEndHeight -= 0.05f;
+	}
+
+	public static void MinusValue_Stone()
+	{
+		World.stoneEndHeight -= 0.05f;
+	}
 }
