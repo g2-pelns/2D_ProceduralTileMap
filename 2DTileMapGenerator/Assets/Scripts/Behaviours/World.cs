@@ -193,7 +193,27 @@ public class World : MonoBehaviour {
 		
 			if (Input.GetMouseButtonDown (0))
 			{
-				tileUnderMouse.type = Tile.Type.Stone;
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        if (tiles[i, j].m_x == tileUnderMouse.m_x && tiles[i, j].m_y == tileUnderMouse.m_y)
+                        {
+                            //regen = true;
+                            tiles[i, j] = MakeTileAtHeight(0.5f);
+                            tiles[i, j].m_x = tileUnderMouse.m_x;
+                            tiles[i, j].m_y = tileUnderMouse.m_y;
+
+                            GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
+                            foreach (GameObject tiles in oldTiles)
+                            {
+                                Destroy(tiles);
+                            }
+
+                            SubdivideTilesArray();
+                        }
+                    }
+                }
 			}
 
 		} else {
