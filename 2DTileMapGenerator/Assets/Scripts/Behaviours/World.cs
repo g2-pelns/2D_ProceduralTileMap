@@ -11,8 +11,10 @@ public class World : MonoBehaviour {
     public Material material;
     public Button rndButton;
     public Button genButton;
+
     public List<Button> addVal;
     public List<Button> minVal;
+    public List<Button> tileSelects;
 
     public static int width;
     public static int height;
@@ -27,6 +29,7 @@ public class World : MonoBehaviour {
     public static float persistance;
 
     public int octaves;
+    public static float selectedTile;
 
     public static float seaLevel;
 
@@ -70,6 +73,8 @@ public class World : MonoBehaviour {
         persistance = 0f;
 
         seaLevel = 0.2f;
+        selectedTile = 0.25f;
+
         beachEndHeight = 0.4f;
         grassEndHeight = 0.6f;
         dirtEndHeight = 0.8f;
@@ -135,6 +140,7 @@ public class World : MonoBehaviour {
             }
 
         }
+
         for (int i = 0; i < minVal.Count; i++)
         {
             switch (i)
@@ -176,6 +182,35 @@ public class World : MonoBehaviour {
 
         }
 
+        for (int i = 0; i < tileSelects.Count; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    tileSelects[i].onClick.AddListener(MenuControl.DirtSelect);
+                    break;
+                case 1:
+                    tileSelects[i].onClick.AddListener(MenuControl.GrassSelect);
+                    break;
+                case 2:
+                    tileSelects[i].onClick.AddListener(MenuControl.SandSelect);
+                    break;
+                case 3:
+                    tileSelects[i].onClick.AddListener(MenuControl.BrickSelect);
+                    break;
+                case 4:
+                    tileSelects[i].onClick.AddListener(MenuControl.StoneSelect);
+                    break;
+                case 5:
+                    tileSelects[i].onClick.AddListener(MenuControl.WaterSelect);
+                    break;
+                case 6:
+                    tileSelects[i].onClick.AddListener(MenuControl.NULLSelect);
+                    break;
+            }
+
+        }
+
         CreateTiles();  
         SubdivideTilesArray();
 	}
@@ -200,7 +235,7 @@ public class World : MonoBehaviour {
                         if (tiles[i, j].m_x == tileUnderMouse.m_x && tiles[i, j].m_y == tileUnderMouse.m_y)
                         {
                             //regen = true;
-                            tiles[i, j] = MakeTileAtHeight(0.5f);
+                            tiles[i, j] = MakeTileAtHeight(selectedTile);
                             tiles[i, j].m_x = tileUnderMouse.m_x;
                             tiles[i, j].m_y = tileUnderMouse.m_y;
 

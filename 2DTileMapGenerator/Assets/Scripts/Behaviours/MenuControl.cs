@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MenuControl : MonoBehaviour {
@@ -157,4 +158,40 @@ public class MenuControl : MonoBehaviour {
 	{
 		World.stoneEndHeight -= 0.05f;
 	}
+
+    public static void DirtSelect()
+    {
+        World.selectedTile = World.dirtEndHeight;
+    }
+
+    public static void GrassSelect()
+    {
+        World.selectedTile = World.grassEndHeight;
+    }
+
+    public static void SandSelect()
+    {
+        World.selectedTile = World.beachEndHeight;
+    }
+
+    public static void BrickSelect()
+    {
+        //World.selectedTile = World.bric;
+        return;
+    }
+
+    public static void StoneSelect()
+    {
+        World.selectedTile = World.stoneEndHeight;
+    }
+
+    public static void WaterSelect()
+    {
+        World.selectedTile = World.seaLevel;
+    }
+
+    public static void NULLSelect()
+    {
+        World.selectedTile = 1.5f;
+    }
 }
