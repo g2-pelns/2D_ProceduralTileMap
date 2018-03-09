@@ -11,7 +11,7 @@ public class CameraControl : MonoBehaviour {
 	public float targetOrtho;
 	public float smoothSpeed = 2.0f;
 	public float minOrtho = 1.0f;
-	public float maxOrtho = 20.0f;
+	public float maxOrtho = 50.0f;
 
 	void Start(){
 		targetOrtho = Camera.main.orthographicSize;

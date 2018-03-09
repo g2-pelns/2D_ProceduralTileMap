@@ -92,6 +92,7 @@ public class World : MonoBehaviour {
         }
 
         noise = new Noise(seed.GetHashCode(), frequency, amplitude, lacunarity, persistance, octaves);
+        DontDestroyOnLoad(transform.gameObject);
     }
 
 	void Start () {
