@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class World : MonoBehaviour {
 
@@ -223,11 +224,15 @@ public class World : MonoBehaviour {
 		Tile tileUnderMouse = GetTileAtCoord (pos);
 
 		if (tileUnderMouse != null) {
-			cursor.SetActive (true);
-			Vector3 cursorPos = new Vector3 (tileUnderMouse.m_x, tileUnderMouse.m_y, 0);
-			cursor.transform.position = cursorPos;
+
+            if (SceneManager.GetActiveScene().name == "Main")
+            {
+                cursor.SetActive(true);
+                Vector3 cursorPos = new Vector3(tileUnderMouse.m_x, tileUnderMouse.m_y, 0);
+                cursor.transform.position = cursorPos;
+            }
 		
-			if (Input.GetMouseButtonDown (0))
+			if (Input.GetMouseButtonDown (0) && SceneManager.GetActiveScene().name == "Main")
 			{
                 for (int i = 0; i < width; i++)
                 {
@@ -252,7 +257,8 @@ public class World : MonoBehaviour {
                 }
 			}
 
-		} else {
+		} else if(SceneManager.GetActiveScene().name == "Main")
+        {
 			cursor.SetActive (false);
 		}
 
