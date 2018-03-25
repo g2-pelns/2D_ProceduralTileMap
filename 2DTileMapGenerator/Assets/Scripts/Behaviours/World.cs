@@ -360,7 +360,7 @@ public class World : MonoBehaviour {
         {
             for (int j = 0; j < height; j++)
             {
-                tiles[i, j] = MakeTileAtHeight(noiseValues[i, j]);
+                tiles [i, j] = MakeTileAtHeight(noiseValues[i, j]);
 				tiles [i, j].m_x = i;
 				tiles [i, j].m_y = j;
             }
