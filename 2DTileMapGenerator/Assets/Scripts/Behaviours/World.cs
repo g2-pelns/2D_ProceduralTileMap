@@ -274,7 +274,7 @@ public class World : MonoBehaviour {
         }
     }
 
-	Tile GetTileAtCoord(Vector3 coord)
+	public Tile GetTileAtCoord(Vector3 coord)
 	{
 		int x = Mathf.FloorToInt (coord.x);
 		int y = Mathf.FloorToInt (coord.y);
