@@ -302,7 +302,7 @@ public class World : MonoBehaviour {
         seed = value.ToString();
     }
 
-    void SubdivideTilesArray (int i1 = 0, int i2 = 0)
+    public void SubdivideTilesArray (int i1 = 0, int i2 = 0)
     {
         //Get size of segment
         int sizeX;
@@ -363,11 +363,12 @@ public class World : MonoBehaviour {
                 tiles [i, j] = MakeTileAtHeight(noiseValues[i, j]);
 				tiles [i, j].m_x = i;
 				tiles [i, j].m_y = j;
+                //Debug.Log(i +" "+ j);
             }
         }
     }
 
-	Tile MakeTileAtHeight(float currentHeight)
+	public Tile MakeTileAtHeight(float currentHeight)
     {
         if (currentHeight <= seaLevel)
             return new Tile(Tile.Type.Water);

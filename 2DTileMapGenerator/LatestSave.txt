@@ -1,11 +1,100 @@
-This is my file. Its flipped!
-W W W S S S S S S W 
-W S S S S S S S S W 
-S S S G G G G S S W 
-S G G G G G G G S S 
-G G G G G G G G S S 
-G D D D D D G G S S 
-D D D D D D D G G S 
-D C C C C D D G G S 
-C C C C C C D D G S 
-C C C C C C C D G G 
+G 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 
+W 

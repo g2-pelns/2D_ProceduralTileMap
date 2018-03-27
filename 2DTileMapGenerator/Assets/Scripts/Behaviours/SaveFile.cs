@@ -17,12 +17,11 @@ public class SaveFile : MonoBehaviour {
     {
 
         StreamWriter sr = File.CreateText(FILE_NAME);
-        sr.WriteLine("This is my file. Its flipped!");
 
-        for (int j = World.height - 1; j >= 0; j--)
+        for (int i = 0; i < World.width; i++)
         {
 
-            for (int i = 0; i < World.width; i++)
+            for (int j = 0; j < World.height; j++)
             {
 
                 curTile = new Tile(World.instance.GetTileAt(i, j).type);
@@ -51,9 +50,11 @@ public class SaveFile : MonoBehaviour {
                         break;
                 }
 
-                valueFile = valueFile + values + " ";
+                //valueFile = valueFile + values + " ";
+                valueFile = values + " ";
+                sr.WriteLine(valueFile);
             }
-            sr.WriteLine(valueFile);
+            //sr.WriteLine(valueFile);
             valueFile = "";
         }
 
