@@ -81,8 +81,10 @@
     <Compile Include="Assets\Scripts\Behaviours\CameraControl.cs" />
     <Compile Include="Assets\Scripts\Behaviours\Game\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Behaviours\Game\PlayerBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Behaviours\LoadFile.cs" />
     <Compile Include="Assets\Scripts\Behaviours\MenuControl.cs" />
     <Compile Include="Assets\Scripts\Behaviours\PlayGame.cs" />
+    <Compile Include="Assets\Scripts\Behaviours\SaveFile.cs" />
     <Compile Include="Assets\Scripts\Behaviours\SpriteLoader.cs" />
     <Compile Include="Assets\Scripts\Behaviours\World.cs" />
     <Compile Include="Assets\Scripts\Classes\MeshData.cs" />
