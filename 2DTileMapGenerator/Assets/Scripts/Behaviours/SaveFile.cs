@@ -9,7 +9,7 @@ public class SaveFile : MonoBehaviour {
 
     public Tile curTile;
 
-    char values;
+    string values = "";
     string valueFile = "";
     public const string FILE_NAME = "LatestSave.txt";
 
@@ -29,29 +29,29 @@ public class SaveFile : MonoBehaviour {
                 switch (curTile.type)
                 {
                     case Tile.Type.Dirt:
-                        values = 'D';
+                        values = "D";
                         break;
                     case Tile.Type.Grass:
-                        values = 'G';
+                        values = "G";
                         break;
                     case Tile.Type.Sand:
-                        values = 'S';
+                        values = "S";
                         break;
                     case Tile.Type.Water:
-                        values = 'W';
+                        values = "W";
                         break;
                     case Tile.Type.Stone:
-                        values = 'C';
+                        values = "C";
                         break;
                     case Tile.Type.Void:
-                        values = 'X';
+                        values = "X";
                         break;
                     default:
                         break;
                 }
 
                 //valueFile = valueFile + values + " ";
-                valueFile = values + " ";
+                valueFile = values;
                 sr.WriteLine(valueFile);
             }
             //sr.WriteLine(valueFile);

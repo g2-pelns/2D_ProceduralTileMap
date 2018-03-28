@@ -12,7 +12,7 @@ public class LoadFile : MonoBehaviour {
 
     protected FileInfo theSourceFile = null;
     protected StreamReader reader = null;
-    protected string text = " "; //assigned to allow first line to be read below
+    string text = ""; //assigned to allow first line to be read below
 
     public void LoadLevel()
     {
@@ -30,36 +30,40 @@ public class LoadFile : MonoBehaviour {
             for (int j = 0; j < World.height; j++)
             {
                 text = reader.ReadLine();
-                switch (text)
+
+                if (text == "D")
                 {
-                    case "D":
-                        tileVal = World.dirtEndHeight;
-                        break;
-                    case "G":
-                        tileVal = World.grassEndHeight;
-                        break;
-                    case "S":
-                        tileVal = World.beachEndHeight;
-                        break;
-                    case "W":
-                        tileVal = World.seaLevel;
-                        break;
-                    case "C":
-                        tileVal = World.stoneEndHeight;
-                        break;
-                    case "X":
-                        tileVal = 1.5f;
-                        break;
-                    default:
-                        break;
+                    tileVal = World.dirtEndHeight;
+                }
+                else if (text == "G")
+                {
+                    tileVal = World.grassEndHeight;
+                }
+                else if (text == "S")
+                {
+                    tileVal = World.beachEndHeight;
+                }
+                else if (text == "W")
+                {
+                    tileVal = World.seaLevel;
+                }
+                else if (text == "C")
+                {
+                    tileVal = World.stoneEndHeight;
+                }
+                else
+                {
+                    tileVal = 1.5f;
                 }
 
-
+                //tiles[i, j] = MakeTileAtHeight(noiseValues[i, j]);
                 World.instance.tiles[i, j] = World.instance.MakeTileAtHeight(tileVal);
+                World.instance.tiles[i, j].m_x = i;
+                World.instance.tiles[i, j].m_y = j;
             }
         }
 
-        World.instance.SubdivideTilesArray();
+        World.instance.LoadMap();
 
         text = " ";
         reader.Close();

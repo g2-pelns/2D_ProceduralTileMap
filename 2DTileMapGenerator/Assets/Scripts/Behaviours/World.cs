@@ -296,6 +296,17 @@ public class World : MonoBehaviour {
         SubdivideTilesArray();
     }
 
+    public void LoadMap()
+    {
+        GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
+        foreach (GameObject tiles in oldTiles)
+        {
+            Destroy(tiles);
+        }
+
+        SubdivideTilesArray();
+    }
+
     void CreateRandom()
     {
         int value = Random.Range(-1000, 1000);
