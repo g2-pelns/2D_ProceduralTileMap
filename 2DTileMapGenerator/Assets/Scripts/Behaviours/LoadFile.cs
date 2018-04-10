@@ -9,6 +9,10 @@ public class LoadFile : MonoBehaviour {
 
     private float tileVal;
     public Tile curTile;
+    public static LoadFile lf_instance;
+
+    public int width;
+    public int height;
 
     protected FileInfo theSourceFile = null;
     protected StreamReader reader = null;
@@ -19,15 +23,16 @@ public class LoadFile : MonoBehaviour {
         theSourceFile = new FileInfo("LatestSave.txt");
         reader = theSourceFile.OpenText();
 
+        World.instance.tiles = new Tile[width, height];
         //do
         //{
         //    text = reader.ReadLine();
         //    Debug.Log(text);
         //} while (text != null);
 
-        for (int i = 0; i < World.width; i++)
+        for (int i = 0; i < width; i++)
         {
-            for (int j = 0; j < World.height; j++)
+            for (int j = 0; j < height; j++)
             {
                 text = reader.ReadLine();
 

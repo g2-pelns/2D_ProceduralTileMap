@@ -34,8 +34,8 @@ public class MenuControl : MonoBehaviour {
 	void Update () {
         m_Seed.text = World.seed;
 
-        m_Width.text = World.width.ToString();
-        m_Height.text = World.height.ToString();
+        m_Width.text = World.instance.width.ToString();
+        m_Height.text = World.instance.height.ToString();
 
         m_Freq.text = World.frequency.ToString();
         m_Amp.text = World.amplitude.ToString();
@@ -51,12 +51,12 @@ public class MenuControl : MonoBehaviour {
 
 	public static void AddValue_Width()
 	{
-		World.width += 10;
+		World.instance.width += 10;
 	}
 
 	public static void AddValue_Height()
 	{
-		World.height += 10;
+		World.instance.height += 10;
 	}
 
 	public static void AddValue_Freq()
@@ -106,12 +106,12 @@ public class MenuControl : MonoBehaviour {
 
 	public static void MinusValue_Width()
 	{
-		World.width -= 10;
+		World.instance.width -= 10;
 	}
 
 	public static void MinusValue_Height()
 	{
-		World.height -= 10;
+		World.instance.height -= 10;
 	}
 
 	public static void MinusValue_Freq()

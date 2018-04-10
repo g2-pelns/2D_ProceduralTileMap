@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class World : MonoBehaviour {
 
     public static World instance;
+    public LoadFile loadFile;
 	public GameObject cursor;
 
     public Material material;
@@ -17,8 +18,8 @@ public class World : MonoBehaviour {
     public List<Button> minVal;
     public List<Button> tileSelects;
 
-    public static int width;
-    public static int height;
+    public int width;
+    public int height;
 
     public static string seed;
     public bool randomSeed;
@@ -298,6 +299,9 @@ public class World : MonoBehaviour {
 
     public void LoadMap()
     {
+        //width = loadFile.width;
+        //height = loadFile.height;
+
         GameObject[] oldTiles = GameObject.FindGameObjectsWithTag("CHUNK");
         foreach (GameObject tiles in oldTiles)
         {

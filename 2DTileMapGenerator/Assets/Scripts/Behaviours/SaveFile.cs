@@ -8,6 +8,7 @@ using System;
 public class SaveFile : MonoBehaviour {
 
     public Tile curTile;
+    public LoadFile loadFile;
 
     string values = "";
     string valueFile = "";
@@ -15,13 +16,15 @@ public class SaveFile : MonoBehaviour {
 
     public void SaveLevel()
     {
+        loadFile.width = World.instance.width;
+        loadFile.height = World.instance.height;
 
         StreamWriter sr = File.CreateText(FILE_NAME);
 
-        for (int i = 0; i < World.width; i++)
+        for (int i = 0; i < World.instance.width; i++)
         {
 
-            for (int j = 0; j < World.height; j++)
+            for (int j = 0; j < World.instance.height; j++)
             {
 
                 curTile = new Tile(World.instance.GetTileAt(i, j).type);

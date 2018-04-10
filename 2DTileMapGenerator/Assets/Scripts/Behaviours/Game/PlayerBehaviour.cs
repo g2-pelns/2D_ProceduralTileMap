@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.W) && transform.position.y < (World.height - 0.5f))
+        if (Input.GetKeyDown(KeyCode.W) && transform.position.y < (World.instance.height - 0.5f))
         { 
             transform.position += new Vector3(0f, 1f);
         }
@@ -26,7 +26,7 @@ public class PlayerBehaviour : MonoBehaviour {
             transform.position -= new Vector3(0f, 1f);
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && transform.position.x < (World.width - 0.5f))
+        if (Input.GetKeyDown(KeyCode.D) && transform.position.x < (World.instance.width - 0.5f))
         {
             transform.position += new Vector3(1f, 0f);
         }
